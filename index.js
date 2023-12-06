@@ -42,7 +42,7 @@ app.get("/expenses", async function (request, response) {
     const expenses = await client
         .db('moneyManagerDup')
         .collection('income/expenses')
-        .find()
+        .find({ category: "expense" })
         .toArray()
 
     // console.log(expenses);
@@ -120,7 +120,7 @@ app.get("/income", async (request, response) => {
     const expensess = await client
         .db('moneyManagerDup')
         .collection('income/expenses')
-        .find({})
+        .find({ category: "income" })
         .toArray();
 
     response.send(expensess);

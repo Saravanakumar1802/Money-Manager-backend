@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const userFromDB = await getUserByEmail(email)
-    console.log(userFromDB);
+    // console.log(userFromDB);
     if (!userFromDB) {
         res.status(401).send({ message: "Invalid Credentials" })
     } else {
@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
                 .db('moneyManagerDup')
                 .collection('income/expenses')
                 .updateOne({ _id: userFromDB._id }, { $set: { token: token } });
-        
+
             res.send({ message: "Login Successfully", token: token, userFromDB })
         } else {
             res.status(401).send({ message: "Invalid Credentials" })
@@ -91,7 +91,7 @@ router.post("/loginhelp/tokenauth/:token", async (req, res) => {
     //!Checking token is valid or Not
     try {
         const user = await isTokenVerified(token);
-        console.log(user);
+        // console.log(user);
         if (!user) {
             res.status(404).json({ message: "Invalid Token" })
         } else {
