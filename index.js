@@ -7,7 +7,14 @@ import userRouter from './routes/user.route.js'
 
 dotenv.config()
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 8080;
 
@@ -31,14 +38,14 @@ app.use('/user', userRouter)
 
 app.get("/expenses", async function (request, response) {
     // const data = request.body
-// console.log(data);
+    // console.log(data);
     const expenses = await client
         .db('moneyManagerDup')
         .collection('income/expenses')
         .find()
         .toArray()
-        
-// console.log(expenses);
+
+    // console.log(expenses);
     response.send(expenses);
 });
 
